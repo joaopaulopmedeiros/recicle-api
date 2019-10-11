@@ -15,14 +15,20 @@ class Cidadao extends CI_Controller {
     }
  
     function insert() {
-        $this->form_validation->set_rules("first_name", "First Name", "required");
-        $this->form_validation->set_rules("last_name", "Last Name", "required");
+        $this->form_validation->set_rules("nome", "Nome", "required");
+        $this->form_validation->set_rules("email", "Email", "required");
+        $this->form_validation->set_rules("cpf", "CPF", "required");
+        $this->form_validation->set_rules("cep", "CEP", "required");
+        $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
 
         if($this->form_validation->run()) {
             $data = array(
-                'first_name' => trim($this->input->post('first_name')),
-                'last_name'  => trim($this->input->post('last_name'))
+                'nome' => trim($this->input->post('nome')),
+                'email'  => trim($this->input->post('email')),
+                'cpf' => trim($this->input->post('cpf')),
+                'cep'  => trim($this->input->post('cep')),
+                'senha'  => trim($this->input->post('senha'))
             );
             $this->cidadao_model->insert_api($data);
             $array = array(
@@ -31,51 +37,66 @@ class Cidadao extends CI_Controller {
         } else {
             $array = array(
                 'error'            => true,
-                'first_name_error' => form_error('first_name'),
-                'last_name_error'  => form_error('last_name')
+                'nome_error' => form_error('nome'),
+                'email_error'  => form_error('email'),
+                'cpf_error' => form_error('cpf'),
+                'cep_error'  => form_error('cep'),
+                'senha_error' => form_error('senha')
             );
         }
         echo json_encode($array, true);
     }
 
     function fetch_single() {
-        if($this->input->post('id')) {
+        if($this->input->post('cpf')) {
             $data = $this->cidadao_model->fetch_single_user($this->input->post('id'));
             foreach($data as $row) {
-                $output['first_name'] = $row["first_name"];
-                $output['last_name'] = $row["last_name"];
+                $output['nome'] = $row["nome"];
+                $output['email'] = $row["email"];
+                $output['cpf'] = $row["cpf"];
+                $output['cep'] = $row["cep"];
+                $output['senha'] = $row["senha"];
             }
             echo json_encode($output);
         }
     }
 
     function update() {
-        $this->form_validation->set_rules("first_name", "First Name", "required");
-        $this->form_validation->set_rules("last_name", "Last Name", "required");
+        $this->form_validation->set_rules("nome", "Nome", "required");
+        $this->form_validation->set_rules("email", "Email", "required");
+        $this->form_validation->set_rules("cpf", "CPF", "required");
+        $this->form_validation->set_rules("cep", "CEP", "required");
+        $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
 
         if($this->form_validation->run()) {
             $data = array(
-                'first_name' => trim($this->input->post('first_name')),
-                'last_name'  => trim($this->input->post('last_name'))
+                'nome' => trim($this->input->post('nome')),
+                'email'  => trim($this->input->post('email')),
+                'cpf' => trim($this->input->post('cpf')),
+                'cep'  => trim($this->input->post('cep')),
+                'senha'  => trim($this->input->post('senha'))
             );
-            $this->cidadao_model->update_api($this->input->post('id'), $data);
+            $this->cidadao_model->update_api($this->input->post('cpf'), $data);
             $array = array(
                 'success'  => true
             );
         } else {
             $array = array(
                 'error'            => true,
-                'first_name_error' => form_error('first_name'),
-                'last_name_error'  => form_error('last_name')
+                'nome_error' => form_error('nome'),
+                'email_error'  => form_error('email'),
+                'cpf_error' => form_error('cpf'),
+                'cep_error'  => form_error('cep'),
+                'senha_error' => form_error('senha')
             );
         }
         echo json_encode($array, true);
     }
 
     function delete() {
-        if($this->input->post('id')) {
-            if($this->cidadao_model->delete_single_user($this->input->post('id'))) {
+        if($this->input->post('cpf')) {
+            if($this->cidadao_model->delete_single_user($this->input->post('cpf'))) {
                 $array = array(
                     'success' => true
                 );
