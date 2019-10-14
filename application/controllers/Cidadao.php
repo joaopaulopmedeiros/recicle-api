@@ -17,17 +17,17 @@ class Cidadao extends CI_Controller {
     function insert() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("email", "Email", "required");
-        $this->form_validation->set_rules("cpf", "CPF", "required");
+        $this->form_validation->set_rules("doc", "CPF", "required");
         $this->form_validation->set_rules("cep", "CEP", "required");
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
 
         if($this->form_validation->run()) {
             $data = array(
-                'nome' => trim($this->input->post('nome')),
+                'nome'   => trim($this->input->post('nome')),
                 'email'  => trim($this->input->post('email')),
-                'cpf' => trim($this->input->post('cpf')),
-                'cep'  => trim($this->input->post('cep')),
+                'cpf'    => trim($this->input->post('doc')),
+                'cep'    => trim($this->input->post('cep')),
                 'senha'  => trim($this->input->post('senha'))
             );
             $this->cidadao_model->insert_api($data);
@@ -35,12 +35,13 @@ class Cidadao extends CI_Controller {
                 'success'  => true
             );
         } else {
+            //$array = array('mensagens' => validation_errors());
             $array = array(
-                'error'            => true,
-                'nome_error' => form_error('nome'),
-                'email_error'  => form_error('email'),
-                'cpf_error' => form_error('cpf'),
-                'cep_error'  => form_error('cep'),
+                'error'       => true,
+                'nome_error'  => form_error('nome'),
+                'email_error' => form_error('email'),
+                'cpf_error'   => form_error('doc'),
+                'cep_error'   => form_error('cep'),
                 'senha_error' => form_error('senha')
             );
         }
