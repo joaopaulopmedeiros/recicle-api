@@ -26,7 +26,7 @@ class Cidadao extends CI_Controller {
             $data = array(
                 'nome'   => trim($this->input->post('nome')),
                 'email'  => trim($this->input->post('email')),
-                'cpf'    => trim($this->input->post('doc')),
+                'cpf'    => trim($this->input->post('cpf')),
                 'cep'    => trim($this->input->post('cep')),
                 'senha'  => trim($this->input->post('senha'))
             );
@@ -35,15 +35,15 @@ class Cidadao extends CI_Controller {
                 'success'  => true
             );
         } else {
-            //$array = array('mensagens' => validation_errors());
-            $array = array(
+            $array = array('mensagens' => validation_errors());
+            /*$array = array(
                 'error'       => true,
                 'nome_error'  => form_error('nome'),
                 'email_error' => form_error('email'),
-                'cpf_error'   => form_error('doc'),
+                'cpf_error'   => form_error('cpf'),
                 'cep_error'   => form_error('cep'),
                 'senha_error' => form_error('senha')
-            );
+            );*/
         }
         echo json_encode($array, true);
     }
