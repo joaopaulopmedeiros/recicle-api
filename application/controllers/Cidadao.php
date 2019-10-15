@@ -17,7 +17,7 @@ class Cidadao extends CI_Controller {
     function insert() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("email", "Email", "required");
-        $this->form_validation->set_rules("doc", "CPF", "required");
+        $this->form_validation->set_rules("cpf", "CPF", "required");
         $this->form_validation->set_rules("cep", "CEP", "required");
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
@@ -35,15 +35,14 @@ class Cidadao extends CI_Controller {
                 'success'  => true
             );
         } else {
-            $array = array('mensagens' => validation_errors());
-            /*$array = array(
+            $array = array(
                 'error'       => true,
                 'nome_error'  => form_error('nome'),
                 'email_error' => form_error('email'),
                 'cpf_error'   => form_error('cpf'),
                 'cep_error'   => form_error('cep'),
                 'senha_error' => form_error('senha')
-            );*/
+            );
         }
         echo json_encode($array, true);
     }
