@@ -14,7 +14,7 @@ class Cidadao extends CI_Controller {
         echo json_encode($data->result_array());
     }
  
-    function insert() {
+    function inserir() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("email", "Email", "required");
         $this->form_validation->set_rules("cpf", "CPF", "required");
