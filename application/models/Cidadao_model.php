@@ -3,7 +3,7 @@ class Cidadao_model extends CI_Model
 {
   function fetch_all()
   {
-    $this->db->order_by('cpf', 'DESC');
+    $this->db->order_by('docCadastrado', 'DESC');
     return $this->db->get('cidadao');
   }
 
@@ -20,22 +20,22 @@ class Cidadao_model extends CI_Model
     }
   }
 
-  function fetch_single_user($user_cpf)
+  function fetch_single_user($docCadastrado)
   {
-    $this->db->where("cpf", $user_cpf);
+    $this->db->where("docCadastrado", $docCadastrado);
     $query = $this->db->get('cidadao');
     return $query->result_array();
   }
 
-  function update_api($user_cpf, $data)
+  function update_api($docCadastrado, $data)
   {
-    $this->db->where("cpf", $user_cpf);
+    $this->db->where("docCadastrado", $docCadastrado);
     $this->db->update("cidadao", $data);
   }
  
-  function delete_single_user($user_cpf)
+  function delete_single_user($docCadastrado)
   {
-    $this->db->where("cpf", $user_cpf);
+    $this->db->where("docCadastrado", $docCadastrado);
     $this->db->delete("cidadao");
     if($this->db->affected_rows() > 0)
     {

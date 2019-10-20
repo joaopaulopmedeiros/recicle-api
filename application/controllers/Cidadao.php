@@ -17,7 +17,7 @@ class Cidadao extends CI_Controller {
     function inserir() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("login", "Login", "required");
-        $this->form_validation->set_rules("cpf", "CPF", "required");
+        $this->form_validation->set_rules("docCadastrado", "CPF", "required");
         $this->form_validation->set_rules("cep", "CEP", "required");
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
@@ -26,7 +26,7 @@ class Cidadao extends CI_Controller {
             $data = array(
                 'nome'   => trim($this->input->post('nome')),
                 'login'  => trim($this->input->post('login')),
-                'cpf'    => trim($this->input->post('cpf')),
+                'docCadastrado'    => trim($this->input->post('docCadastrado')),
                 'cep'    => trim($this->input->post('cep')),
                 'senha'  => trim($this->input->post('senha'))
             );
@@ -39,7 +39,7 @@ class Cidadao extends CI_Controller {
                 'error'       => true,
                 'nome_error'  => form_error('nome'),
                 'login_error' => form_error('login'),
-                'cpf_error'   => form_error('cpf'),
+                'docCadastrado_error'   => form_error('docCadastrado'),
                 'cep_error'   => form_error('cep'),
                 'senha_error' => form_error('senha')
             );
@@ -48,12 +48,12 @@ class Cidadao extends CI_Controller {
     }
 
     function fetch_single() {
-        if($this->input->post('cpf')) {
+        if($this->input->post('docCadastrado')) {
             $data = $this->cidadao_model->fetch_single_user($this->input->post('id'));
             foreach($data as $row) {
                 $output['nome'] = $row["nome"];
                 $output['email'] = $row["email"];
-                $output['cpf'] = $row["cpf"];
+                $output['docCadastrado'] = $row["docCadastrado"];
                 $output['cep'] = $row["cep"];
                 $output['senha'] = $row["senha"];
             }
@@ -64,7 +64,7 @@ class Cidadao extends CI_Controller {
     function update() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("email", "Email", "required");
-        $this->form_validation->set_rules("cpf", "CPF", "required");
+        $this->form_validation->set_rules("docCadastrado", "CPF", "required");
         $this->form_validation->set_rules("cep", "CEP", "required");
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
@@ -73,11 +73,11 @@ class Cidadao extends CI_Controller {
             $data = array(
                 'nome' => trim($this->input->post('nome')),
                 'email'  => trim($this->input->post('email')),
-                'cpf' => trim($this->input->post('cpf')),
+                'docCadastrado' => trim($this->input->post('docCadastrado')),
                 'cep'  => trim($this->input->post('cep')),
                 'senha'  => trim($this->input->post('senha'))
             );
-            $this->cidadao_model->update_api($this->input->post('cpf'), $data);
+            $this->cidadao_model->update_api($this->input->post('docCadastrado'), $data);
             $array = array(
                 'success'  => true
             );
@@ -86,7 +86,7 @@ class Cidadao extends CI_Controller {
                 'error'            => true,
                 'nome_error' => form_error('nome'),
                 'email_error'  => form_error('email'),
-                'cpf_error' => form_error('cpf'),
+                'docCadastrado_error' => form_error('docCadastrado'),
                 'cep_error'  => form_error('cep'),
                 'senha_error' => form_error('senha')
             );
@@ -95,8 +95,8 @@ class Cidadao extends CI_Controller {
     }
 
     function delete() {
-        if($this->input->post('cpf')) {
-            if($this->cidadao_model->delete_single_user($this->input->post('cpf'))) {
+        if($this->input->post('docCadastrado')) {
+            if($this->cidadao_model->delete_single_user($this->input->post('docCadastrado'))) {
                 $array = array(
                     'success' => true
                 );
