@@ -47,6 +47,20 @@ class Cidadao_model extends CI_Model
     }
   }
 
+  function verificarDocCadastrado($doc)
+  {
+    $this->db->where('docCadastrado', $doc);
+    $query = $this->db->get('cidadao');
+    return $query->result_array();
+  }
+
+  function verificarEmail($login)
+  {
+    $this->db->where('login', $login);
+    $query = $this->db->get('cidadao');
+    return $query->result_array();
+  }
+
   function autenticar($login, $senha)
   {
     $this->db->where('login', $login);

@@ -46,4 +46,26 @@ class CriadorDesafio_model extends CI_Model
       return false;
     }
   }
+
+  function verificarDocCadastrado($doc)
+  {
+    $this->db->where('docCadastrado', $doc);
+    $query = $this->db->get('criadorDesafio');
+    return $query->result_array();
+  }
+
+  function verificarEmail($login)
+  {
+    $this->db->where('login', $login);
+    $query = $this->db->get('criadorDesafio');
+    return $query->result_array();
+  }
+
+  function autenticar($login, $senha)
+  {
+    $this->db->where('login', $login);
+    $this->db->where('senha', $senha);
+    $query = $this->db->get('criadorDesafio');
+    return $query->result_array();
+  }
 }
