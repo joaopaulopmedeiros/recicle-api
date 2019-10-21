@@ -1,20 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cidadao extends CI_Controller {
-
-    public function __construct() {
+class Cidadao extends CI_Controller
+{
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('cidadao_model');
         $this->load->library('form_validation');
     }
 
-    function index() {
+    function index() 
+    {
         $data = $this->cidadao_model->fetch_all();
         echo json_encode($data->result_array());
     }
  
-    function inserir() {
+    function inserir() 
+    {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("login", "Login", "required");
         $this->form_validation->set_rules("docCadastrado", "CPF", "required");
@@ -22,7 +25,8 @@ class Cidadao extends CI_Controller {
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
 
-        if($this->form_validation->run()) {
+        if($this->form_validation->run()) 
+        {
             $data = array(
                 'nome'   => trim($this->input->post('nome')),
                 'login'  => trim($this->input->post('login')),
@@ -34,7 +38,9 @@ class Cidadao extends CI_Controller {
             $array = array(
                 'success'  => true
             );
-        } else {
+        }
+        else 
+        {
             $array = array(
                 'error'       => true,
                 'nome_error'  => form_error('nome'),
@@ -47,8 +53,10 @@ class Cidadao extends CI_Controller {
         echo json_encode($array, true);
     }
 
-    function fetch_single() {
-        if($this->input->post('docCadastrado')) {
+    function fetch_single()
+    {
+        if($this->input->post('docCadastrado'))
+        {
             $data = $this->cidadao_model->fetch_single_user($this->input->post('id'));
             foreach($data as $row) {
                 $output['nome'] = $row["nome"];
@@ -61,7 +69,8 @@ class Cidadao extends CI_Controller {
         }
     }
 
-    function update() {
+    function update()
+    {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("email", "Email", "required");
         $this->form_validation->set_rules("docCadastrado", "CPF", "required");
@@ -69,7 +78,8 @@ class Cidadao extends CI_Controller {
         $this->form_validation->set_rules("senha", "Senha", "required");
         $array = array();
 
-        if($this->form_validation->run()) {
+        if($this->form_validation->run())
+        {
             $data = array(
                 'nome' => trim($this->input->post('nome')),
                 'email'  => trim($this->input->post('email')),
@@ -81,9 +91,11 @@ class Cidadao extends CI_Controller {
             $array = array(
                 'success'  => true
             );
-        } else {
+        }
+        else
+        {
             $array = array(
-                'error'            => true,
+                'error' => true,
                 'nome_error' => form_error('nome'),
                 'email_error'  => form_error('email'),
                 'docCadastrado_error' => form_error('docCadastrado'),
@@ -94,13 +106,17 @@ class Cidadao extends CI_Controller {
         echo json_encode($array, true);
     }
 
-    function delete() {
-        if($this->input->post('docCadastrado')) {
+    function delete()
+    {
+        if($this->input->post('docCadastrado'))
+        {
             if($this->cidadao_model->delete_single_user($this->input->post('docCadastrado'))) {
                 $array = array(
                     'success' => true
                 );
-            } else {
+            }
+            else
+            {
                 $array = array(
                     'error' => true
                 );
