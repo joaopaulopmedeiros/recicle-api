@@ -46,4 +46,12 @@ class Cidadao_model extends CI_Model
       return false;
     }
   }
+
+  function autenticar($login, $senha)
+  {
+    $this->db->where('login', $login);
+    $this->db->where('senha', $senha);
+    $query = $this->db->get('cidadao');
+    return $query->result_array();
+  }
 }
