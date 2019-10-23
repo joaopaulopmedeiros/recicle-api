@@ -17,7 +17,7 @@ class CriadorDesafio extends CI_Controller {
     function inserir() {
         $this->form_validation->set_rules("nome", "Nome", "required");
         $this->form_validation->set_rules("login", "Login", "required");
-        $this->form_validation->set_rules("docCadastrado", "CPF", "required|exact_length[14]");
+        $this->form_validation->set_rules("docCadastrado", "Documento de identificação", "required|min_length[11]|max_length[14]");
         $this->form_validation->set_rules("cep", "CEP", "required|exact_length[8]");
         $this->form_validation->set_rules("senha", "Senha", "required|min_length[6]|max_length[20]");
         $this->form_validation->set_rules("confirmarSenha", "Confirmar senha", "required|min_length[6]|max_length[20]");
@@ -76,7 +76,7 @@ class CriadorDesafio extends CI_Controller {
         {
             $array = array(
                 'error' => true,
-                'msg_erro' => 'Preencha todos os dados corretamente.'
+                'msg_erro' => 'Preencha todos os dados corretamente. Verifique se todos os campos estão devidamente preenchidos.'
             );
         }
         echo json_encode($array, true);

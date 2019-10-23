@@ -79,7 +79,7 @@ class Cidadao extends CI_Controller
         {
             $array = array(
                 'error' => true,
-                'msg_erro' => 'Preencha todos os dados corretamente.'
+                'msg_erro' => 'Preencha todos os dados corretamente. Verifique se todos os campos estão devidamente preenchidos.'
             );
         }
         echo json_encode($array, true);
