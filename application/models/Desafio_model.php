@@ -3,10 +3,11 @@ class Desafio_model extends CI_Model
 {
   function fetch_all()
   {
-    $this->db->select('*');    
+    $this->db->select('desafio.*, criadorDesafio.nome, criadorDesafio.cep, rsu.tipo, bonificacao.nome');    
     $this->db->from('desafio');
     $this->db->join('criadorDesafio', 'criadorDesafio.docCadastrado = desafio.idCriadorDesafio');
     $this->db->join('rsu', 'desafio.idTipoRSU = rsu.id');
+    $this->db->join('bonificacao', 'desafio.idTipoBonificacao = bonificacao.id');
     $this->db->order_by('desafio.id', 'DESC');
     return $this->db->get();
   }
