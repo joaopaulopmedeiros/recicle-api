@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . '/libraries/CreatorJwt.php';
 
 class Login extends CI_Controller
 {
@@ -7,12 +7,10 @@ class Login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Cidadao_model');
-        $this->load->model('CriadorDesafio_model');
-        //$this->load->model('PontoColeta_model');
-        $this->load->library('form_validation');
+        $this->objOfJwt = new CreatorJwt();
+        header('Content-Type: application/json');
     }
- 
+    
     function logon()
     {
         $this->form_validation->set_rules("login", "Email", "required");
@@ -26,31 +24,21 @@ class Login extends CI_Controller
 
             if ($this->Cidadao_model->autenticar($login, $senha))
             {
-                $array = array(
-                    'success'  => true,
-                    'conta' => 'cidadao'
-                );
+                $type = "cidadao";
+                $this->gerarToken($login,$senha,$type);
             }
-            /*else if($this->CriadorDesafio_model->autenticar($data))
+            else if($this->CriadorDesafio_model->autenticar($login,$senha))
             {
-                $array = array(
-                    'success'  => true,
-                    'conta' => 'criador de desafios'
-                );
-            }*/
-            /*else if($this->PontosColeta_model->autenticar($data))
-            {
-                $array = array(
-                    'success'  => true,
-                    'conta' => 'ponto de coleta (ecoponto)'
-                );
-            }*/
+                $type = "criador";
+                $this->gerarToken($login,$senha,$type);
+            }
             else
             {
-                $array = array(
+                $response = array(
                     'error'  => true,
                     'erro' => 'email ou senha incorretos'
                 );
+                echo json_encode($response,true);
             }
         }
         else
@@ -61,11 +49,35 @@ class Login extends CI_Controller
                 'senha_error' => form_error('senha')
             );
         }
-        echo json_encode($array, true);
+
     }
 
     function logoff()
     {
 
     }
+
+    
+    function gerarToken($l,$p,$t)
+    {
+        $doc = ""; 
+
+        if($t == "cidadao"){
+             $doc = $this->Cidadao_model->getDoc($l);
+        }
+        if($t == "criador"){
+           $doc = $this->CriadorDesafio_model->getDoc($l);
+        }
+
+        $tokenData['doc'] = $doc;
+        $tokenData['login'] = $l;
+        $tokenData['senha'] = $p;
+        $tokenData['timeStamp'] = Date('d/m/Y');
+        
+        $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
+        $response = array('Token'=>$jwtToken);
+        
+        echo json_encode($response,true);
+    }
+
 }
