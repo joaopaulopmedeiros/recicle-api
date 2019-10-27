@@ -68,4 +68,15 @@ class CriadorDesafio_model extends CI_Model
     $query = $this->db->get('criadorDesafio');
     return $query->result_array();
   }
+  
+  /*getters and setters*/
+
+  function getDoc($login){
+    $this->db->select('docCadastrado');
+    $this->db->from('criadorDesafio');
+    $this->db->where('login', $login);
+    $query = $this->db->get();
+    return $query->result();
+  }
+  
 }

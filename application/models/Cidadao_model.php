@@ -68,4 +68,16 @@ class Cidadao_model extends CI_Model
     $query = $this->db->get('cidadao');
     return $query->result_array();
   }
+
+  /*getters and setters*/
+
+  function getDoc($login){
+    $this->db->select('docCadastrado');
+    $this->db->from('cidadao');
+    $this->db->where('login', $login);
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+
 }
