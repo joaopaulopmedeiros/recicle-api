@@ -15,7 +15,7 @@ class Login extends CI_Controller
     {
         $this->form_validation->set_rules("login", "Email", "required");
         $this->form_validation->set_rules("senha", "Senha", "required");
-        $array = array();
+        $response = array();
 
         if($this->form_validation->run())
         {
@@ -36,46 +36,44 @@ class Login extends CI_Controller
             {
                 $response = array(
                     'error'  => true,
-                    'erro' => 'email ou senha incorretos'
+                    'erro' => 'O email ou senha digitados estão incorretos.'
                 );
                 echo json_encode($response,true);
             }
         }
         else
         {
-            $array = array(
-                'error'       => true,
-                'login_error' => form_error('login'),
-                'senha_error' => form_error('senha')
+            $response = array(
+                'error' => true,
+                'erro' => 'Preencha os dados corretamente.'
             );
-        }
-
+            echo json_encode($response,true);
+        }   
     }
-
-    function logoff()
-    {
-
-    }
-
     
     function gerarToken($l,$p,$t)
     {
-        $doc = ""; 
-
         if($t == "cidadao"){
-             $doc = $this->Cidadao_model->getDoc($l);
+            $doc = $this->Cidadao_model->getDoc($l);
+            $cep = $this->Cidadao_model->getCEP($l);
+            $nome = $this->Cidadao_model->getNome($l);
         }
         if($t == "criador"){
-           $doc = $this->CriadorDesafio_model->getDoc($l);
+            $doc = $this->CriadorDesafio_model->getDoc($l);
         }
 
         $tokenData['doc'] = $doc;
+        $tokenData['cep'] = $cep;
+        $tokenData['nome'] = $nome;
         $tokenData['login'] = $l;
         $tokenData['senha'] = $p;
         $tokenData['timeStamp'] = Date('d/m/Y');
         
         $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
-        $response = array('Token'=>$jwtToken);
+        $response = array(
+            'success' => true,
+            'Token' => $jwtToken
+        );
         
         echo json_encode($response,true);
     }

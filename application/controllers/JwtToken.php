@@ -1,5 +1,5 @@
 <?php
-//application/controllers/JwtToken.php
+    //application/controllers/JwtToken.php
     require APPPATH . '/libraries/CreatorJwt.php';
 
     class JwtToken extends CI_Controller
@@ -15,15 +15,15 @@
 
         public function LoginToken()
         {
-                $tokenData['id'] = '1';
-                $tokenData['user'] = 'joao';
-                $tokenData['pass'] = "123456";
-                $tokenData['timeStamp'] = Date('d/m/Y');
-                $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
-                echo json_encode(array('Token'=>$jwtToken));
-             }
+            $tokenData['id'] = '1';
+            $tokenData['user'] = 'joao';
+            $tokenData['pass'] = "123456";
+            $tokenData['timeStamp'] = Date('d/m/Y');
+            $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
+            echo json_encode(array('Token'=>$jwtToken));
+        }
          
-       /*************Use for token then fetch the data**************/
+        /*************Use for token then fetch the data**************/
              
         public function GetTokenData()
         {
@@ -32,9 +32,9 @@
             {
                 $jwtData = $this->objOfJwt->DecodeToken($received_Token['Token']);
                 echo json_encode($jwtData);
-                }
-                catch (Exception $e)
-                {
+            }
+            catch (Exception $e)
+            {
                 http_response_code('401');
                 echo json_encode(array( "status" => false, "message" => "errou, boy"));exit;
             }
