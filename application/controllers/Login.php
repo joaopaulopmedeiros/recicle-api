@@ -60,6 +60,8 @@ class Login extends CI_Controller
         }
         if($t == "criador"){
             $doc = $this->CriadorDesafio_model->getDoc($l);
+            $cep = $this->CriadorDesafio_model->getCEP($l);
+            $nome = $this->CriadorDesafio_model->getNome($l);
         }
 
         $tokenData['doc'] = $doc;
@@ -67,6 +69,7 @@ class Login extends CI_Controller
         $tokenData['nome'] = $nome;
         $tokenData['login'] = $l;
         $tokenData['senha'] = $p;
+        $tokenData['tipo'] = $t;
         $tokenData['timeStamp'] = Date('d/m/Y');
         
         $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
