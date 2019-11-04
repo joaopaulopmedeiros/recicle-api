@@ -46,4 +46,11 @@ class RSU_model extends CI_Model
       return false;
     }
   }
+
+  function verificarTipoLixo($tipo)
+  {
+    $this->db->where('tipo', $tipo);
+    $query = $this->db->get('rsu');
+    return $query->result_array();
+  }
 }
