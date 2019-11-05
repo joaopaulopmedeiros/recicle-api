@@ -31,10 +31,10 @@ class RSU extends CI_Controller
                     'tipo' => trim($this->input->post('tipo'))
                 );
                 $this->rsu_model->insert_api($data);
-                    $array = array(
-                        'success' => true
-                    );
-                }
+                $array = array(
+                    'success' => true
+                );
+            }
             else
             {
                 $array = array(

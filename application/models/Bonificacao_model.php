@@ -46,4 +46,11 @@ class Bonificacao_model extends CI_Model
       return false;
     }
   }
+
+  function verificarBonificacao($nome)
+  {
+    $this->db->where('nome', $nome);
+    $query = $this->db->get('bonificacao');
+    return $query->result_array();
+  }
 }
