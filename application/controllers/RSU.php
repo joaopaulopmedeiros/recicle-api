@@ -25,7 +25,7 @@ class RSU extends CI_Controller
         {
             $tipo = $this->input->post('tipo');
 
-            if ($this->rsu_model->verificarTipoLixo($tipo) == null)
+            if ($this->rsu_model->verificarTipoRSU($tipo) == null)
             {
                 $data = array(
                     'tipo' => trim($this->input->post('tipo'))

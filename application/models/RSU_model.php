@@ -47,7 +47,7 @@ class RSU_model extends CI_Model
     }
   }
 
-  function verificarTipoLixo($tipo)
+  function verificarTipoRSU($tipo)
   {
     $this->db->where('tipo', $tipo);
     $query = $this->db->get('rsu');
