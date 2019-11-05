@@ -28,11 +28,7 @@ class Desafios extends CI_Controller
         $this->form_validation->set_rules("titulo", "titulo", "required");
         $this->form_validation->set_rules("descricao", "descricao", "required");
         $this->form_validation->set_rules("idCriadorDesafio", "idCriadorDesafio", "required");
-        $this->form_validation->set_rules("idTipoBonificacao", "idTipoBonificacao", "required");
         $this->form_validation->set_rules("idTipoRSU", "idTipoRSU", "required");
-        $this->form_validation->set_rules("qtdRSU", "qtdRSU", "required");
-        $this->form_validation->set_rules("descricaoBonificacao", "descricaoBonificacao", "required");
-        $this->form_validation->set_rules("dataLimite", "dataLimite", "required");
 
         $array = array();
 
