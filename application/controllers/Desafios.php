@@ -43,7 +43,7 @@ class Desafios extends CI_Controller
                 'qtdRSU' => trim($this->input->post('qtdRSU')),
                 'descricaoBonificacao' => trim($this->input->post('descricaoBonificacao')),
                 'dataLimite' => trim($this->input->post('dataLimite')),
-                'img' => null
+                'img' => trim($this->input->post('img'))
             );
             $this->desafio_model->insert_api($data);
             $array = array('success' => true);
