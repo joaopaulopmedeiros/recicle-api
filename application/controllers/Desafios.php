@@ -52,6 +52,7 @@ class Desafios extends CI_Controller
         {
             $array = array(
                 'error' => true,
+                'msg-erro' => 'Preencha todos os dados corretamente',
                 'titulo_error' => form_error('titulo'),
                 'descricao_error'  => form_error('descricao'),
                 'idCriadorDesafio_error' => form_error('idCriadorDesafio'),
