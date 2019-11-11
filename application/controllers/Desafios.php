@@ -31,12 +31,14 @@ class Desafios extends CI_Controller
         
         $array = array();
 
+        $image = $_FILES['img'];
+
         if ($this->form_validation->run())
         {
             if ($this->upload->do_upload('img'))
             {
                 $data_img = $this->upload->data();
-                $image = $data_img['file_name']; 
+                $filename = $data_img['file_name']; 
                 
                 $data = array(
                     'titulo' => trim($this->input->post('titulo')),
@@ -47,7 +49,7 @@ class Desafios extends CI_Controller
                     'qtdRSU' => trim($this->input->post('qtdRSU')),
                     'descricaoBonificacao' => trim($this->input->post('descricaoBonificacao')),
                     'dataLimite' => trim($this->input->post('dataLimite')),
-                    'img' => $data_img
+                    'img' => $filename
                 );
                 $this->desafio_model->insert_api($data);
                 $array = array('success' => true);
