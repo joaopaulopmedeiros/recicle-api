@@ -12,6 +12,17 @@ class Desafio_model extends CI_Model
     return $this->db->get();
   }
 
+  function fetch_single($id_desafio)
+  {
+    $this->db->select('desafio.*, criadorDesafio.nome as criador_desafio, criadorDesafio.cep as cep_criador_desafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao');    
+    $this->db->from('desafio');
+    $this->db->where("desafio.id", $id_desafio);
+    $this->db->join('criadorDesafio', 'criadorDesafio.docCadastrado = desafio.idCriadorDesafio');
+    $this->db->join('rsu', 'desafio.idTipoRSU = rsu.id');
+    $this->db->join('bonificacao', 'desafio.idTipoBonificacao = bonificacao.id');
+    return $this->db->get();
+  }
+
   function insert_api($data)
   {
     $this->db->insert('desafio', $data);
