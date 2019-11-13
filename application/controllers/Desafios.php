@@ -22,6 +22,13 @@ class Desafios extends CI_Controller
         echo json_encode($data->result_array());
     }
 
+    function verDesafio()
+    {
+        $id_desafio = $this->input->post('id_desafio');
+        $data = $this->desafio_model->fetch_single($id_desafio);
+        echo json_encode($data->result_array());
+    }
+
     function inserir()
     {
         $this->form_validation->set_rules("titulo", "titulo", "required");
