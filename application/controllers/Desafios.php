@@ -26,7 +26,21 @@ class Desafios extends CI_Controller
     {
         $id_desafio = $this->input->post('id_desafio');
         $data = $this->desafio_model->fetch_single($id_desafio);
-        echo json_encode($data->result_array());
+        $dataArray = $data->result_array();
+
+        if ($dataArray[0]['dataLimite'] == '0000-00-00' || $dataArray[0]['dataLimite'] == ' ' || $dataArray[0]['dataLimite'] == null) {
+            $dataArray[0]['dataLimite'] = 'Sem data limite';
+        }
+        else {
+            $date = $dataArray[0]['dataLimite'];
+            $dataArray[0]['dataLimite'] = nice_date($date, 'd/m/Y');
+        }
+
+        if ($dataArray[0]['qtdRSU'] == '0') {
+            $dataArray[0]['qtdRSU'] = 'Sem quantidade definida';
+        }
+        
+        echo json_encode($dataArray);
     }
 
     function inserir()
