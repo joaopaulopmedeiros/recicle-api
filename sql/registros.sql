@@ -3,6 +3,8 @@
 -- CIDADAO
 INSERT INTO `cidadao`(`docCadastrado`, `login`, `senha`, `nome`, `cep`)
 VALUES ('11877157430','joao@gmail.com','123456','Joao','59073222');
+INSERT INTO `cidadao`(`docCadastrado`, `login`, `senha`, `nome`, `cep`)
+VALUES ('12345678901','fabi@gmail.com','123456','Fabiana','59073245');
 
 -- CRIADOR DE DESAFIOS
 INSERT INTO `criadordesafio`(`docCadastrado`, `login`, `senha`, `nome`, `cep`)
