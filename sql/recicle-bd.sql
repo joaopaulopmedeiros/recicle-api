@@ -70,14 +70,14 @@ CREATE TABLE IF NOT EXISTS recicle.desafio(
 
 -- Criacao de Tabela Desafio Aceito, atributos, engine para transacao de dados e colecao de caracteres default
 CREATE TABLE IF NOT EXISTS recicle.desafioAceito(
-	id int auto_increment UNIQUE,
+	id int auto_increment,
     idCidadao varchar(20) NOT NULL, -- fk
     idCriadorDesafio varchar(20) NOT NULL, -- fk
 	idTipoRSU int NOT NULL, -- fk
     idTipoBonificacao int NOT NULL, -- fk
-    idDesafio int NOT NULL UNIQUE, -- fk
+    idDesafio int NOT NULL, -- fk
     cumprido boolean,
-    CONSTRAINT PK_desafioAceito PRIMARY KEY(id,idDesafio) -- identificador de chave primaria
+    CONSTRAINT PK_desafioAceito PRIMARY KEY(id) -- identificador de chave primaria
 ) DEFAULT CHARSET = utf8;
 
 use recicle;
