@@ -23,12 +23,12 @@ class DesafiosAceitos extends CI_Controller
         $this->form_validation->set_rules("idDesafio","idDesafio","required");
 
         $data = array(
-            "idCriadorDesafio" => trim($this->input->post("idCriadorDesafio"));
-            "idCidadao" => trim($this->input->post("idCidadao"));
-            "idTipoRSU" => trim($this->input->post("idTipoRSU"));
-            "idTipoBonificacao" => trim($this->input->post("idTipoBonificacao"));
-            "idDesafio" => trim($this->input->post("idDesafio"));
-            "cumprido" => 0;
+            "idCriadorDesafio" => trim($this->input->post("idCriadorDesafio")),
+            "idCidadao" => trim($this->input->post("idCidadao")),
+            "idTipoRSU" => trim($this->input->post("idTipoRSU")),
+            "idTipoBonificacao" => trim($this->input->post("idTipoBonificacao")),
+            "idDesafio" => trim($this->input->post("idDesafio")),
+            "cumprido" => 0
         );
 
         $this->DesafioAceito_model->insert_api($data);
