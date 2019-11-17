@@ -101,35 +101,45 @@ class CriadorDesafio extends CI_Controller {
     function update()
     {
         $this->form_validation->set_rules("nome", "Nome", "required");
-        $this->form_validation->set_rules("email", "Email", "required");
-        $this->form_validation->set_rules("docCadastrado", "CPF", "required");
-        $this->form_validation->set_rules("cep", "CEP", "required");
-        $this->form_validation->set_rules("senha", "Senha", "required");
+        $this->form_validation->set_rules("login", "Login", "required");
+        $this->form_validation->set_rules("docCadastrado", "Documento de identificação", "required");
+        $this->form_validation->set_rules("cep", "CEP", "required|exact_length[8]");
+        $this->form_validation->set_rules("senha", "Senha", "required|min_length[6]|max_length[20]");
         $array = array();
 
         if($this->form_validation->run())
         {
-            $data = array(
-                'nome' => trim($this->input->post('nome')),
-                'email'  => trim($this->input->post('email')),
-                'docCadastrado' => trim($this->input->post('docCadastrado')),
-                'cep'  => trim($this->input->post('cep')),
-                'senha'  => trim($this->input->post('senha'))
-            );
-            $this->criadorDesafio_model->update_api($this->input->post('docCadastrado'), $data);
-            $array = array(
-                'success'  => true
-            );
+            $login = $this->input->post('login');
+            $email_user = $this->input->post('email_user');
+            $docCadastrado = $this->input->post('docCadastrado');
+
+                if ($this->CriadorDesafio_model->verificarEmail($login) == null || $login == $email_user)
+                {
+                    $data = array(
+                        'nome' => trim($this->input->post('nome')),
+                        'login'  => trim($this->input->post('login')),
+                        'cep'  => trim($this->input->post('cep')),
+                        'senha'  => trim($this->input->post('senha'))
+                    );
+                    $this->CriadorDesafio_model->update_api($docCadastrado, $data);
+                    $array = array(
+                        'success'  => true
+                    );
+                }
+                else
+                {
+                    $array = array(
+                        'error' => true,
+                        'msg_erro' => "O email inserido no formulário já está cadastrado no sistema."
+                    );
+                }
+            
         }
         else
         {
             $array = array(
                 'error' => true,
-                'nome_error' => form_error('nome'),
-                'email_error'  => form_error('email'),
-                'docCadastrado_error' => form_error('docCadastrado'),
-                'cep_error'  => form_error('cep'),
-                'senha_error' => form_error('senha')
+                'msg_erro' => 'Verifique os campos e tente novamente.'
             );
         }
         echo json_encode($array, true);
