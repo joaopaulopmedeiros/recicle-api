@@ -56,8 +56,10 @@ class CriadorDesafio_model extends CI_Model
 
   function verificarEmail($login)
   {
+    $this->db->select('login');
+    $this->db->from('criadorDesafio');
     $this->db->where('login', $login);
-    $query = $this->db->get('criadorDesafio');
+    $query = $this->db->get();
     return $query->result_array();
   }
 
