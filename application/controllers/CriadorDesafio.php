@@ -86,10 +86,10 @@ class CriadorDesafio extends CI_Controller {
     {
         if($this->input->post('docCadastrado'))
         {
-            $data = $this->criadorDesafio_model->fetch_single_user($this->input->post('id'));
+            $data = $this->CriadorDesafio_model->fetch_single_user($this->input->post('docCadastrado'));
             foreach($data as $row) {
                 $output['nome'] = $row["nome"];
-                $output['email'] = $row["email"];
+                $output['login'] = $row["login"];
                 $output['docCadastrado'] = $row["docCadastrado"];
                 $output['cep'] = $row["cep"];
                 $output['senha'] = $row["senha"];
