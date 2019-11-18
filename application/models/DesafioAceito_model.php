@@ -16,7 +16,20 @@ class DesafioAceito_model extends CI_Model
 
   function insert_api($data)
   {
-    $this->db->insert('desafioaceito', $data);
+    $id_user = element('idCidadao',$data);
+    $id_desafio = element('idDesafio',$data);
+
+    $this->db->select("*");
+    $this->db->from("desafioaceito");
+    $this->db->where("idCidadao",$id_user);
+    $this->db->where("idDesafio",$id_desafio);
+    
+    $query = $this->db->get();
+    $check = $query->row();
+
+    if(($query->num_rows() == 0) || ($query->num_rows() > 0 && $check->cumprido == 1)){
+      $this->db->insert('desafioaceito', $data);
+    }
     if($this->db->affected_rows() > 0)
     {
       return true;
