@@ -27,7 +27,7 @@ class DesafioAceito_model extends CI_Model
     $query = $this->db->get();
     $check = $query->row();
 
-    if(($query->num_rows() == 0) || ($query->num_rows() > 0 && $check->cumprido == 1)){
+    if(($query->num_rows() == 0) || ($query->num_rows() > 1 && $check->cumprido == 1)){
       $this->db->insert('desafioaceito', $data);
     }
     if($this->db->affected_rows() > 0)
