@@ -113,27 +113,26 @@ class CriadorDesafio extends CI_Controller {
             $email_user = $this->input->post('email_user');
             $docCadastrado = $this->input->post('docCadastrado');
 
-                if ($this->CriadorDesafio_model->verificarEmail($login) == null || $login == $email_user)
-                {
-                    $data = array(
-                        'nome' => trim($this->input->post('nome')),
-                        'login'  => trim($this->input->post('login')),
-                        'cep'  => trim($this->input->post('cep')),
-                        'senha'  => trim($this->input->post('senha'))
-                    );
-                    $this->CriadorDesafio_model->update_api($docCadastrado, $data);
-                    $array = array(
-                        'success'  => true
-                    );
-                }
-                else
-                {
-                    $array = array(
-                        'error' => true,
-                        'msg_erro' => "O email inserido no formulário já está cadastrado no sistema."
-                    );
-                }
-            
+            if ($this->CriadorDesafio_model->verificarEmail($login) == null || $login == $email_user)
+            {
+                $data = array(
+                    'nome' => trim($this->input->post('nome')),
+                    'login'  => trim($this->input->post('login')),
+                    'cep'  => trim($this->input->post('cep')),
+                    'senha'  => trim($this->input->post('senha'))
+                );
+                $this->CriadorDesafio_model->update_api($docCadastrado, $data);
+                $array = array(
+                    'success'  => true
+                );
+            }
+            else
+            {
+                $array = array(
+                    'error' => true,
+                    'msg_erro' => "O email inserido no formulário já está cadastrado no sistema."
+                );
+            }
         }
         else
         {
