@@ -60,4 +60,18 @@ class DesafioAceito_model extends CI_Model
     }
   }
 
+  function ver_concorrentes_desafio($id_desafio)
+  {
+    $this->db->select("desafioaceito.id as idDesafioAceito,desafio.id as idDesafio, desafio.titulo as desafio, cidadao.nome as cidadao, criadordesafio.nome as criadorDesafio,  rsu.tipo as tipoRSU,  bonificacao.nome as bonificacao, desafioaceito.cumprido as cumprido");      
+    $this->db->from("desafioaceito");
+    $this->db->join("criadordesafio","criadordesafio.docCadastrado = desafioaceito.idCriadorDesafio");
+    $this->db->join("cidadao","cidadao.docCadastrado = desafioaceito.idCidadao");
+    $this->db->join("rsu","rsu.id = desafioaceito.idTipoRSU");
+    $this->db->join("bonificacao","bonificacao.id = desafioaceito.idTipoBonificacao");
+    $this->db->join("desafio","desafio.id = desafioaceito.idDesafio");
+    $this->db->where("desafio.id",$id_desafio);
+    $this->db->order_by("desafioaceito.cumprido");
+    return $this->db->get();
+  }
+
 }
