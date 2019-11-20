@@ -34,4 +34,20 @@ class DesafiosAceitos extends CI_Controller
 
         $this->DesafioAceito_model->insert_api($data);
     }
+    
+    function ver_concorrentes_desafio()
+    {
+        $id_desafio = $this->input->post("idDesafio");
+        $data = $this->DesafioAceito_model->ver_concorrentes_desafio($id_desafio);
+        echo json_encode($data->result_array());
+    }
+
+    function cumprirDesafio()
+    {
+        $id = $this->input->post("idDesafioAceito");
+        $cumprido = $this->input->post("status");
+        $data = array("cumprido" => $cumprido);
+        $this->DesafioAceito_model->update_api($id,$data);
+    }
+
 }
