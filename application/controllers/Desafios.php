@@ -77,4 +77,15 @@ class Desafios extends CI_Controller
 
         echo json_encode($array, true);
     }
+
+    function filtrar_desafios()
+    {
+       $idCriadorDesafio = $this->input->post('idCriadorDesafio');
+       $idTipoBonificacao = $this->input->post('idTipoBonificacao');
+       $idTipoRSU = $this->input->post('idTipoRSU');
+
+       $data = $this->desafio_model->filtrar_desafios($idCriadorDesafio,$idTipoBonificacao,$idTipoRSU);
+       echo json_encode($data->result_array());
+    }
+
 }
