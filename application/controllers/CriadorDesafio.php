@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . '/libraries/CreatorJwt.php';
 
 class CriadorDesafio extends CI_Controller {
 
@@ -7,6 +7,8 @@ class CriadorDesafio extends CI_Controller {
         parent::__construct();
         $this->load->model('CriadorDesafio_model');
         $this->load->library('form_validation');
+        $this->objOfJwt = new CreatorJwt();
+        header('Content-Type: application/json');
     }
 
     function index() {
@@ -21,7 +23,7 @@ class CriadorDesafio extends CI_Controller {
         $this->form_validation->set_rules("cep", "CEP", "required|exact_length[8]");
         $this->form_validation->set_rules("senha", "Senha", "required|min_length[6]|max_length[20]");
         $this->form_validation->set_rules("confirmarSenha", "Confirmar senha", "required|min_length[6]|max_length[20]");
-        $array = array();
+        $response = array();
 
         if($this->form_validation->run()) 
         {
@@ -44,42 +46,68 @@ class CriadorDesafio extends CI_Controller {
                             'senha' => trim($this->input->post('senha'))
                         );
                         $this->CriadorDesafio_model->insert_api($data);
-                        $array = array(
-                            'success' => true
-                        );
+                        $type = "criador";
+                        $this->gerarToken($login,$senha,$type);
                     }
                     else
                     {
-                        $array = array(
+                        $response = array(
                             'error' => true,
                             'msg_erro' => 'O email inserido no formulário já está cadastrado no sistema.'
                         );
+                        echo json_encode($response, true);
                     }
                 }
                 else
                 {
-                    $array = array(
+                    $response = array(
                         'error' => true,
                         'msg_erro' => 'O CPF ou CNPJ inserido no formulário já está cadastrado no sistema.'
                     );
+                    echo json_encode($response, true);
                 }
             }
             else
             {
-                $array = array(
+                $response = array(
                     'error' => true,
                     'msg_erro' => 'Os campos da senha não estão iguais.'
                 );
+                echo json_encode($response, true);
             }
         }
         else 
         {
-            $array = array(
+            $response = array(
                 'error' => true,
                 'msg_erro' => 'Preencha todos os dados corretamente. Verifique se todos os campos estão devidamente preenchidos.'
             );
+            echo json_encode($response, true);
         }
-        echo json_encode($array, true);
+        
+    }
+
+    function gerarToken($l,$p,$t)
+    {
+        $doc = $this->CriadorDesafio_model->getDoc($l);
+        $cep = $this->CriadorDesafio_model->getCEP($l);
+        $nome = $this->CriadorDesafio_model->getNome($l);    
+
+        $tokenData['doc'] = $doc;
+        $tokenData['cep'] = $cep;
+        $tokenData['nome'] = $nome;
+        $tokenData['login'] = $l;
+        $tokenData['senha'] = $p;
+        $tokenData['tipo'] = $t;
+        $tokenData['timeStamp'] = Date('d/m/Y');
+        
+        $jwtToken = $this->objOfJwt->GenerateToken($tokenData);
+        $response = array(
+            'success' => true,
+            'Token' => $jwtToken
+        );
+        
+        echo json_encode($response,true);
     }
 
     function fetch_single()
@@ -105,7 +133,7 @@ class CriadorDesafio extends CI_Controller {
         $this->form_validation->set_rules("docCadastrado", "Documento de identificação", "required");
         $this->form_validation->set_rules("cep", "CEP", "required|exact_length[8]");
         $this->form_validation->set_rules("senha", "Senha", "required|min_length[6]|max_length[20]");
-        $array = array();
+        $response = array();
 
         if($this->form_validation->run())
         {
@@ -122,13 +150,13 @@ class CriadorDesafio extends CI_Controller {
                     'senha'  => trim($this->input->post('senha'))
                 );
                 $this->CriadorDesafio_model->update_api($docCadastrado, $data);
-                $array = array(
+                $response = array(
                     'success'  => true
                 );
             }
             else
             {
-                $array = array(
+                $response = array(
                     'error' => true,
                     'msg_erro' => "O email inserido no formulário já está cadastrado no sistema."
                 );
@@ -136,26 +164,26 @@ class CriadorDesafio extends CI_Controller {
         }
         else
         {
-            $array = array(
+            $response = array(
                 'error' => true,
                 'msg_erro' => 'Verifique os campos e tente novamente.'
             );
         }
-        echo json_encode($array, true);
+        echo json_encode($response, true);
     }
 
     function delete() {
         if($this->input->post('docCadastrado')) {
             if($this->CriadorDesafio_model->delete_single_user($this->input->post('docCadastrado'))) {
-                $array = array(
+                $response = array(
                     'success' => true
                 );
             } else {
-                $array = array(
+                $response = array(
                     'error' => true
                 );
             }
-            echo json_encode($array);
+            echo json_encode($response);
         }
     }
 }

@@ -91,16 +91,9 @@ class Cidadao extends CI_Controller
 
     function gerarToken($l,$p,$t)
     {
-        if($t == "cidadao"){
-            $doc = $this->cidadao_model->getDoc($l);
-            $cep = $this->cidadao_model->getCEP($l);
-            $nome = $this->cidadao_model->getNome($l);
-        }
-        if($t == "criador"){
-            $doc = $this->CriadorDesafio_model->getDoc($l);
-            $cep = $this->CriadorDesafio_model->getCEP($l);
-            $nome = $this->CriadorDesafio_model->getNome($l);
-        }
+        $doc = $this->cidadao_model->getDoc($l);
+        $cep = $this->cidadao_model->getCEP($l);
+        $nome = $this->cidadao_model->getNome($l);    
 
         $tokenData['doc'] = $doc;
         $tokenData['cep'] = $cep;
@@ -118,8 +111,6 @@ class Cidadao extends CI_Controller
         
         echo json_encode($response,true);
     }
-
-
 
     function fetch_single()
     {
