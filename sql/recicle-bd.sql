@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS recicle.bonificacao(
 -- Criacao de Tabela Desafio, atributos, engine para transacao de dados e colecao de caracteres default
 CREATE TABLE IF NOT EXISTS recicle.desafio(	
 	id int auto_increment,
-    titulo varchar(50) NOT NULL,
+    titulo varchar(100) NOT NULL,
     descricao varchar (1500) NOT NULL,
     idCriadorDesafio varchar(20) NOT NULL, -- fk
     idTipoBonificacao int NULL, -- fk pode haver bonificacao ou nao
