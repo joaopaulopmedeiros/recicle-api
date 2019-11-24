@@ -55,9 +55,17 @@ class Desafio_model extends CI_Model
     $this->db->join('criadorDesafio', 'criadorDesafio.docCadastrado = desafio.idCriadorDesafio');
     $this->db->join('rsu', 'desafio.idTipoRSU = rsu.id');
     $this->db->join('bonificacao', 'desafio.idTipoBonificacao = bonificacao.id');
-    $this->db->where("desafio.idCriadorDesafio", $idCriadorDesafio);
-    $this->db->where("desafio.idTipoBonificacao", $idTipoBonificacao);
-    $this->db->where("desafio.idTipoRSU", $idTipoRSU);
+
+    if ($idCriadorDesafio != 'todos') {
+      $this->db->where("desafio.idCriadorDesafio", $idCriadorDesafio);
+    }
+    if ($idTipoBonificacao != 'todos') {
+      $this->db->where("desafio.idTipoBonificacao", $idTipoBonificacao);
+    }
+    if ($idTipoRSU != '2') {
+      $this->db->where("desafio.idTipoRSU", $idTipoRSU);
+    }
+    
     return $this->db->get();
   }
 
