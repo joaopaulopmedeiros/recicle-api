@@ -79,6 +79,16 @@ CREATE TABLE IF NOT EXISTS recicle.desafioAceito(
     CONSTRAINT PK_desafioAceito PRIMARY KEY(id) -- identificador de chave primaria
 ) DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS recicle.contato(
+	id int auto_increment,
+	nome varchar (50) NOT NULL,
+    sobrenome varchar (50) NOT NULL,
+    email varchar (50) NOT NULL,
+    assunto varchar (50) NOT NULL,
+    mensagem varchar (200) NOT NULL,
+    CONSTRAINT PK_contato PRIMARY KEY(id)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 use recicle;
 
 -- Adicao de chaves estrangeiras
