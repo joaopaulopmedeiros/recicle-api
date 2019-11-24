@@ -26,6 +26,9 @@ VALUES ('2','Desconto');
 INSERT INTO `rsu`(`id`, `tipo`)
 VALUES ('1','Lixo eletrônico');
 
+INSERT INTO `rsu`(`id`, `tipo`)
+VALUES ('2','Todos');
+
 
 -- DESAFIOS
 INSERT INTO `desafio` (`id`, `titulo`, `descricao`, `idCriadorDesafio`, `idTipoBonificacao`, `idTipoRSU`, `qtdRSU`, `descricaoBonificacao`, `dataLimite`)
