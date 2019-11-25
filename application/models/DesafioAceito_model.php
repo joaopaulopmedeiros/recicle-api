@@ -27,7 +27,7 @@ class DesafioAceito_model extends CI_Model
     $query = $this->db->get();
     $check = $query->row();
 
-    if(($query->num_rows() == 0) || ($query->num_rows() > 1 && $check->cumprido == 1)){
+    if(($query->num_rows() == 0) || ($query->num_rows() >= 1 && $check->cumprido == 1)){
       $this->db->insert('desafioaceito', $data);
     }
     if($this->db->affected_rows() > 0)
@@ -46,10 +46,13 @@ class DesafioAceito_model extends CI_Model
     $this->db->update("desafioaceito", $data);
   }
 
-  function delete_single($id)
+  function delete_single($idDesafio, $idCidadao)
   {
-    $this->db->where("id", $id);
-    $this->db->delete("desafio");
+    $this->db->where("idDesafio", $idDesafio);
+    $this->db->where("idCidadao", $idCidadao);
+    $this->db->where("cumprido", 0);
+    $this->db->delete("desafioaceito");
+
     if($this->db->affected_rows() > 0)
     {
       return true;
