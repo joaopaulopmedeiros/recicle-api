@@ -25,13 +25,7 @@ class Desafios extends CI_Controller
     function verDesafio()
     {
         $id_desafio = $this->input->post('id_desafio');
-
-        if ($this->input->post('user') == 'user_criadordesafio') {
-            $data = $this->desafio_model->fetch_single_criador($id_desafio);
-        }
-        else {
-            $data = $this->desafio_model->fetch_single($id_desafio);
-        }
+        $data = $this->desafio_model->fetch_single($id_desafio);
         
         $dataArray = $data->result_array();
 
