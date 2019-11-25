@@ -3,7 +3,7 @@ class DesafioAceito_model extends CI_Model
 {
   function fetch_all($id_user)
   {
-    $this->db->select("desafioaceito.id, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido");      
+    $this->db->select("desafioaceito.id, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido");      
     $this->db->from("desafioaceito");
     $this->db->join("criadordesafio","criadordesafio.docCadastrado = desafioaceito.idCriadorDesafio");
     $this->db->join("cidadao","cidadao.docCadastrado = desafioaceito.idCidadao");
