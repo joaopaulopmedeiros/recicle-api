@@ -73,7 +73,15 @@ class DesafiosAceitos extends CI_Controller
         $id = $this->input->post("idDesafioAceito");
         $cumprido = $this->input->post("status");
         $data = array("cumprido" => $cumprido);
-        $this->DesafioAceito_model->update_api($id,$data);
+        
+        if($this->DesafioAceito_model->update_api($id,$data)){
+            $array = array('success' => true); 
+        }
+        else {
+            $array = array('error' => true); 
+        }
+
+        echo json_encode($array, true);
     }
 
 }
