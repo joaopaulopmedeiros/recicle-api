@@ -32,7 +32,33 @@ class DesafiosAceitos extends CI_Controller
             "cumprido" => 0
         );
 
-        $this->DesafioAceito_model->insert_api($data);
+        if ($this->DesafioAceito_model->insert_api($data)) {
+            $array = array(
+                'success' => true
+            );
+        }
+        else{
+            $array = array(
+                'error' => true
+            );
+        }
+        
+        echo json_encode($array, true);
+    }
+
+    function deletar()
+    {
+        $idCidadao = trim($this->input->post("idCidadao"));
+        $idDesafio = trim($this->input->post("idDesafio"));
+
+        if($this->DesafioAceito_model->delete_single($idDesafio, $idCidadao)) {
+            $array = array('success' => true); 
+        }
+        else {
+            $array = array('error' => true); 
+        }
+
+        echo json_encode($array, true);
     }
     
     function ver_concorrentes_desafio()
