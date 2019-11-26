@@ -12,7 +12,15 @@ class DesafiosAceitos extends CI_Controller
     function index() 
     {
         $id_user = $this->input->post("id_user");
-        $data = $this->DesafioAceito_model->fetch_all($id_user);
+        $id_desafio = $this->input->post("id_desafio");
+        $data = $this->DesafioAceito_model->fetch_all($id_user, $id_desafio);
+        echo json_encode($data->result_array());
+    }
+
+    function ver_meus_desafios() 
+    {
+        $id_user = $this->input->post("id_user");
+        $data = $this->DesafioAceito_model->ver_desafios_aceitos($id_user);
         echo json_encode($data->result_array());
     }
 
