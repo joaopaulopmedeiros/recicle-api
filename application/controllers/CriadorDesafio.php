@@ -15,6 +15,11 @@ class CriadorDesafio extends CI_Controller {
         $data = $this->CriadorDesafio_model->fetch_all();
         echo json_encode($data->result_array());
     }
+
+    function get_ecopontos() {
+        $data = $this->CriadorDesafio_model->get_ecopontos();
+        echo json_encode($data->result_array());
+    }
  
     function inserir() {
         $this->form_validation->set_rules("nome", "Nome", "required");

@@ -7,6 +7,11 @@ class CriadorDesafio_model extends CI_Model
     return $this->db->get('criadordesafio');
   }
 
+  function get_ecopontos() {
+    $this->db->select('nome, cep');
+    return $this->db->get('criadorDesafio');
+  }
+
   function insert_api($data)
   {
     $this->db->insert('criadordesafio', $data);
