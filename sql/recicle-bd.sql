@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS recicle.desafioAceito(
     idTipoBonificacao int NOT NULL, -- fk
     idDesafio int NOT NULL, -- fk
     cumprido boolean,
+    premio_resgatado boolean,
     CONSTRAINT PK_desafioAceito PRIMARY KEY(id) -- identificador de chave primaria
 ) DEFAULT CHARSET = utf8;
 

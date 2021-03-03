@@ -24,6 +24,13 @@ class DesafiosAceitos extends CI_Controller
         echo json_encode($data->result_array());
     }
 
+    function ver_meus_desafios_concluidos() 
+    {
+        $id_user = $this->input->post("id_user");
+        $data = $this->DesafioAceito_model->ver_desafios_concluidos($id_user);
+        echo json_encode($data->result_array());
+    }
+
     function inserir(){
         $this->form_validation->set_rules("idCriadorDesafio","idCriadorDesafio","required");
         $this->form_validation->set_rules("idCidadao","idCidadao","required");
@@ -92,4 +99,19 @@ class DesafiosAceitos extends CI_Controller
         echo json_encode($array, true);
     }
 
+    function resgatarPremio()
+    {
+        $id = $this->input->post("idDesafioAceito");
+        $premio_resgatado = $this->input->post("status");
+        $data = array("premio_resgatado" => $premio_resgatado);
+        
+        if($this->DesafioAceito_model->update_api($id,$data)){
+            $array = array('success' => true); 
+        }
+        else {
+            $array = array('error' => true); 
+        }
+
+        echo json_encode($array, true);
+    }
 }

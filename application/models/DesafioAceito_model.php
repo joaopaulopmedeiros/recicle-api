@@ -3,7 +3,7 @@ class DesafioAceito_model extends CI_Model
 {
   function fetch_all($id_user, $id_desafio)
   {
-    $this->db->select("desafioaceito.id, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido");      
+    $this->db->select("desafioaceito.id, desafio.id as id_desafio, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido, desafioaceito.premio_resgatado as premio_resgatado");      
     $this->db->from("desafioaceito");
     $this->db->join("criadordesafio","criadordesafio.docCadastrado = desafioaceito.idCriadorDesafio");
     $this->db->join("cidadao","cidadao.docCadastrado = desafioaceito.idCidadao");
@@ -17,7 +17,7 @@ class DesafioAceito_model extends CI_Model
 
   function ver_desafios_aceitos($id_user)
   {
-    $this->db->select("desafioaceito.id, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido");      
+    $this->db->select("desafioaceito.id, desafio.id as id_desafio, desafio.titulo as titulo, cidadao.nome as Cidadao, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido, desafioaceito.premio_resgatado as premio_resgatado");      
     $this->db->from("desafioaceito");
     $this->db->join("criadordesafio","criadordesafio.docCadastrado = desafioaceito.idCriadorDesafio");
     $this->db->join("cidadao","cidadao.docCadastrado = desafioaceito.idCidadao");
@@ -26,6 +26,20 @@ class DesafioAceito_model extends CI_Model
     $this->db->join("desafio","desafio.id = desafioaceito.idDesafio");
     $this->db->where("desafioaceito.idCidadao", $id_user);
     $this->db->where("desafioaceito.cumprido", 0);
+    return $this->db->get();
+  }
+
+  function ver_desafios_concluidos($id_user)
+  {
+    $this->db->select("desafioaceito.id, desafio.id as id_desafio, desafio.titulo as titulo, criadordesafio.nome as CriadorDesafio, rsu.tipo as tipo_rsu, bonificacao.nome as tipo_bonificacao, desafioaceito.cumprido as cumprido, desafioaceito.premio_resgatado as premio_resgatado");      
+    $this->db->from("desafioaceito");
+    $this->db->join("criadordesafio","criadordesafio.docCadastrado = desafioaceito.idCriadorDesafio");
+    $this->db->join("cidadao","cidadao.docCadastrado = desafioaceito.idCidadao");
+    $this->db->join("rsu","rsu.id = desafioaceito.idTipoRSU");
+    $this->db->join("bonificacao","bonificacao.id = desafioaceito.idTipoBonificacao");
+    $this->db->join("desafio","desafio.id = desafioaceito.idDesafio");
+    $this->db->where("desafioaceito.idCidadao", $id_user);
+    $this->db->where("desafioaceito.cumprido", 1);
     return $this->db->get();
   }
 
